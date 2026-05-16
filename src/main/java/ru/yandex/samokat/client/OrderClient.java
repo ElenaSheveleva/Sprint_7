@@ -23,19 +23,11 @@ public class OrderClient extends BaseClient {
                 .get(ORDERS_PATH);
     }
 
-    public Response getOrderByTrack(int track) {
+    public Response cancelOrder(int track) {
         return given()
                 .spec(getBaseSpec())
-                .queryParam("t", track)
+                .body("{\"track\": " + track + "}")
                 .when()
-                .get(ORDERS_PATH + "/track");
-    }
-
-    public Response acceptOrder(int orderId, int courierId) {
-        return given()
-                .spec(getBaseSpec())
-                .queryParam("courierId", courierId)
-                .when()
-                .put(ORDERS_PATH + "/accept/" + orderId);
+                .put("/api/v1/orders/cancel");
     }
 }

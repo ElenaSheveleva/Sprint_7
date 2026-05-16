@@ -5,6 +5,7 @@ import ru.yandex.samokat.models.Courier;
 import ru.yandex.samokat.models.LoginCredentials;
 
 import static io.restassured.RestAssured.given;
+import static org.apache.http.HttpStatus.SC_OK;
 
 public class CourierClient extends BaseClient {
     private static final String COURIER_PATH = "/api/v1/courier";
@@ -37,11 +38,15 @@ public class CourierClient extends BaseClient {
                 .delete(COURIER_PATH + "/" + courierId);
     }
 
-    public int getCourierId(Courier courier) {
-        return loginCourier(courier)
-                .then()
-                .statusCode(200)
-                .extract()
-                .path("id");
+    public Integer getCourierId(Courier courier) {
+        try {
+            return loginCourier(courier)
+                    .then()
+                    .statusCode(SC_OK)
+                    .extract()
+                    .path("id");
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
