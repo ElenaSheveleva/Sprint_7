@@ -11,7 +11,7 @@ build/
 # Allure
 .allure/
 allure-report/
-allure-results/
+
 
 # IDE - IntelliJ IDEA
 .idea/
